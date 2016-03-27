@@ -101,7 +101,7 @@ filled.actvtyData$steps <- mapply(fill.value, filled.actvtyData$steps, filled.ac
 
 ```r
 totsteps <- tapply(filled.actvtyData$steps, filled.actvtyData$date, FUN=sum)
-qplot(totsteps, binwidth=500, xlab="Total no. of steps taken each day")
+qplot(totsteps, binwidth=500, xlab="Total no. of steps taken each day - Imputed Missing Values")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
