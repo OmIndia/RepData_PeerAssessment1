@@ -31,21 +31,10 @@ qplot(totsteps, binwidth=500, xlab="Total no. of steps taken each day")
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
 ```r
-mean(totsteps, na.rm=TRUE)
+raw_mean<-mean(totsteps, na.rm=TRUE)
+raw_median<-median(totsteps, na.rm=TRUE)
 ```
-
-```
-## [1] 9354.23
-```
-
-```r
-median(totsteps, na.rm=TRUE)
-```
-
-```
-## [1] 10395
-```
-
+Mean is 9354.2295082 and median is 10395
 
 ## What is the average daily activity pattern?
 
@@ -62,14 +51,9 @@ ggplot(data=average, aes(x=interval, y=steps)) +
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
 ```r
-average[which.max(average$steps),]
+max_step_int<-average[which.max(average$steps),1]
 ```
-
-```
-##     interval    steps
-## 104      835 206.1698
-```
-
+The  5-minute interval, on average across all days, containing the maximum number of steps, is 835
 
 
 ## Imputing missing values
@@ -107,20 +91,10 @@ qplot(totsteps, binwidth=500, xlab="Total no. of steps taken each day - Imputed 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
 
 ```r
-mean(totsteps)
+imp_mean<-mean(totsteps)
+imp_median<-median(totsteps)
 ```
-
-```
-## [1] 10766.19
-```
-
-```r
-median(totsteps)
-```
-
-```
-## [1] 10766.19
-```
+After imputation, Mean is 1.0766189\times 10^{4} and median is 1.0766189\times 10^{4}. Since missing values are replaced by mean values, after imputation mean and median values are higher than raw values
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -146,3 +120,5 @@ ggplot(average, aes(interval, steps)) + geom_line() + facet_grid(day ~ .) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
+
+The weekday chart shows higher activity from early morning till 10 am while the weekend chart shows higher activity between 10 am and 8 pm (2000 hrs)

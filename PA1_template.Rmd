@@ -23,12 +23,12 @@ actvtyData <- read.csv("activity.csv")
 library(ggplot2)
 totsteps <- tapply(actvtyData$steps, actvtyData$date, FUN=sum, na.rm=TRUE)
 qplot(totsteps, binwidth=500, xlab="Total no. of steps taken each day")
-mean(totsteps, na.rm=TRUE)
-median(totsteps, na.rm=TRUE)
-
+raw_mean<-mean(totsteps, na.rm=TRUE)
+raw_median<-median(totsteps, na.rm=TRUE)
+  
 
 ```
-
+Mean is `r raw_mean` and median is `r raw_median`
 
 ## What is the average daily activity pattern?
 
@@ -40,11 +40,11 @@ ggplot(data=average, aes(x=interval, y=steps)) +
     xlab("5 minute interval") +
     ylab("Average no.of steps taken - All Days")
 
-average[which.max(average$steps),]
+max_step_int<-average[which.max(average$steps),1]
 
 
 ```
-
+The  5-minute interval, on average across all days, containing the maximum number of steps, is `r max_step_int`
 
 
 ## Imputing missing values
@@ -79,11 +79,12 @@ filled.actvtyData$steps <- mapply(fill.value, filled.actvtyData$steps, filled.ac
 ```{r}
 totsteps <- tapply(filled.actvtyData$steps, filled.actvtyData$date, FUN=sum)
 qplot(totsteps, binwidth=500, xlab="Total no. of steps taken each day - Imputed Missing Values")
-mean(totsteps)
-median(totsteps)
+imp_mean<-mean(totsteps)
+imp_median<-median(totsteps)
 
 
 ```
+After imputation, Mean is `r imp_mean` and median is `r imp_median`. Since missing values are replaced by mean values, after imputation mean and median values are higher than raw values
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -109,3 +110,5 @@ ggplot(average, aes(interval, steps)) + geom_line() + facet_grid(day ~ .) +
 
 ```
 
+
+The weekday chart shows higher activity from early morning till 10 am while the weekend chart shows higher activity between 10 am and 8 pm (2000 hrs)
